@@ -1,0 +1,44 @@
+// theme-switch.scss
+@import './variables.scss'; // 这里是相对路径，根据你的项目结构进行调整
+
+// 默认主题变量
+$themeMenuWidth: 500px;
+$themeCollapseMenuWidth: 64px;
+$themeMenuBg: #fff;
+$themeMenuText: #bfcbd9;
+$themeMenuActiveText: #409EFF;
+$themeGroupOpenBg: #191B21;
+$themeGroupOpenText: #C0C4CC;
+$themeHeaderHeight: 60px;
+$themeHeaderBg: #fff;
+$themeHeaderText: #333;
+$themeHeaderActiveText: #409EFF;
+
+// mixin，用于应用主题变量
+@mixin apply-theme-variables {
+  $menuWidth: $themeMenuWidth;
+  $collapseMenuWidth: $themeCollapseMenuWidth;
+  $menuBg: $themeMenuBg;
+  $menuText: $themeMenuText;
+  $menuActiveText: $themeMenuActiveText;
+  $groupOpenBg: $themeGroupOpenBg;
+  $groupOpenText: $themeGroupOpenText;
+  $headerHeight: $themeHeaderHeight;
+  $headerBg: $themeHeaderBg;
+  $headerText: $themeHeaderText;
+  $headerActiveText: $themeHeaderActiveText;
+}
+
+// 在此处加入其他主题变量，如果有的话
+
+
+// 切换主题类名
+.dark {
+  @include apply-theme-variables;
+  // 如果有其他暗黑主题样式，也在此处添加
+}
+
+.light {
+  @include apply-theme-variables;
+  // 如果有其他亮主题样式，也在此处添加
+}
