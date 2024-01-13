@@ -1,10 +1,10 @@
-import { navRoute } from './navRoute.js'
+import { navRoute } from './navRoute'
 
 export const constantRouter = [
-  {
-    path: '/',
-    redirect: '/home'
-  },
+  // {
+  //   path: '/',
+  //   redirect: '/home'
+  // },
   {
     path: '/404',
     name: '404',
@@ -21,12 +21,10 @@ export const constantRouter = [
     redirect: '/404'
   },
   {
-    path: '/home',
-    name: 'home',
-    component: () => import('@/views/Home/index.vue'),
-    meta: {
-      title: '首页'
-    },
+    path: '/',
+    redirect: '/home',
+    name: 'layout',
+    component: () => import('@/views/Layout/index.vue'),
     children: navRoute
   }
 ]

@@ -40,8 +40,8 @@ const $Router = useRouter()
 const userStore = useUserStore()
 //表单
 const ruleForm = reactive({
-  username: '',
-  password: '',
+  username: 'admin',
+  password: '123456',
   //验证码
   code: '',
 })
@@ -68,6 +68,7 @@ const submitFormLogin = async (formEl) => {
       // 提交表单，发送请求
       console.log('submit!', ruleForm)
       const res = await reqLogin(ruleForm)
+      console.log(res);
       if (res.status !== 0) {
         //失败
         return ElMessage({

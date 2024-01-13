@@ -32,11 +32,13 @@ export const useUtilsStore = defineStore('utils', {
       this.visitedRoutes = localStorage.getItem('visitedRoutes') ? JSON.parse(localStorage.getItem('visitedRoutes')) : []
     },
     closeTags(path) {
+      console.log(path)
       //清除某个路由
       const visitedRoutes = localStorage.getItem('visitedRoutes') ? JSON.parse(localStorage.getItem('visitedRoutes')) : []
 
       const newVisitedRoutes = visitedRoutes.filter((item) => item.path !== path)
       localStorage.setItem('visitedRoutes', JSON.stringify(newVisitedRoutes))
+      this.visitedRoutes = localStorage.getItem('visitedRoutes') ? JSON.parse(localStorage.getItem('visitedRoutes')) : []
     }
   },
   getters: {}

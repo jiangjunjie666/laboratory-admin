@@ -1,5 +1,14 @@
 export const navRoute = [
   {
+    path: '/home',
+    name: 'home',
+    component: () => import('@/views/Home/index.vue'),
+    meta: {
+      title: '首页',
+      icon: 'HomeFilled'
+    }
+  },
+  {
     path: '/data',
     name: 'data',
     component: () => import('@/views/Data/index.vue'),

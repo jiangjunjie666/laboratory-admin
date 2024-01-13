@@ -9,7 +9,7 @@
               <img src="@/assets/vue.svg" alt="">
               <span v-if="!utilsStore.isCollapse">后台管理系统</span>
             </div>
-            <el-menu default-active="1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+            <el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
               background-color="#24262F" text-color="#fff" active-text-color="#409EFF  " :collapse="utilsStore.isCollapse"
               style="border-right: none" collapse-transition="false" router="true">
               <!-- 去除右侧的滑动条 -->
@@ -146,8 +146,10 @@
   </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+
 import { useUtilsStore } from '@/store/modules/utils.js';
+import { useRoute } from 'vue-router'
+const $route = useRoute()
 const utilsStore = useUtilsStore()
 </script>
   
@@ -155,7 +157,7 @@ const utilsStore = useUtilsStore()
 .menu-left {
   width: $menuWidth;
   height: 100vh;
-  min-height: 800px;
+  min-height: 1200px;
   background-color: $menuBg;
   overflow: hidden;
   transition: all 0.3s; // 添加过渡效果
