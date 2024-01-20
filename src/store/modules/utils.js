@@ -24,7 +24,6 @@ export const useUtilsStore = defineStore('utils', {
         }
       }
       newVisitedRoutes.push(data)
-
       //清除缓存
       localStorage.removeItem('visitedRoutes')
       //重新保存到缓存
@@ -35,7 +34,6 @@ export const useUtilsStore = defineStore('utils', {
       console.log(path)
       //清除某个路由
       const visitedRoutes = localStorage.getItem('visitedRoutes') ? JSON.parse(localStorage.getItem('visitedRoutes')) : []
-
       const newVisitedRoutes = visitedRoutes.filter((item) => item.path !== path)
       localStorage.setItem('visitedRoutes', JSON.stringify(newVisitedRoutes))
       this.visitedRoutes = localStorage.getItem('visitedRoutes') ? JSON.parse(localStorage.getItem('visitedRoutes')) : []

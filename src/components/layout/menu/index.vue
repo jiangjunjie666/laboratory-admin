@@ -71,7 +71,7 @@
                 </el-menu-item-group>
               </el-sub-menu>
 
-              <el-sub-menu index="4">
+              <el-sub-menu index="/basics">
                 <template #title>
                   <el-icon>
                     <Grid />
@@ -79,13 +79,13 @@
                   <span>基础管理 </span>
                 </template>
                 <el-menu-item-group class="el-menu-item-group">
-                  <el-menu-item index="4-1" class="el-menu-item-text">
+                  <el-menu-item index="/basics/general" class="el-menu-item-text">
                     <el-icon>
                       <DocumentCopy />
                     </el-icon>
                     <span>基础信息管理</span>
                   </el-menu-item>
-                  <el-menu-item index="4-2" class="el-menu-item-text">
+                  <el-menu-item index="/basics/slides" class="el-menu-item-text">
                     <el-icon>
                       <PictureFilled />
                     </el-icon>

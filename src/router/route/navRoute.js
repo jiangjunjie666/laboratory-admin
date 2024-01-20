@@ -132,5 +132,34 @@ export const navRoute = [
         }
       }
     ]
+  },
+  {
+    path: '/basics',
+    name: 'basics',
+    redirect: '/basics/general',
+    meta: {
+      title: '基础管理',
+      icon: 'Grid'
+    },
+    children: [
+      {
+        path: '/basics/slides',
+        name: 'slides',
+        component: () => import('@/views/Basics/Slides/index.vue'),
+        meta: {
+          title: '轮播图管理',
+          icon: 'PictureFilled'
+        }
+      },
+      {
+        path: '/basics/general',
+        name: 'general',
+        component: () => import('@/views/Basics/General/index.vue'),
+        meta: {
+          title: '基础信息管理',
+          icon: 'DocumentCopy'
+        }
+      }
+    ]
   }
 ]

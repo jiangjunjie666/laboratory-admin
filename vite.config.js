@@ -16,7 +16,7 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         javascriptEnabled: true,
-        additionalData: '@import "./src/styles/themeSwitch.scss";'
+        additionalData: '@import "./src/styles/variables.scss";'
       }
     }
   },

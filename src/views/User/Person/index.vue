@@ -34,6 +34,9 @@
           <p>人员搜索:</p>
           <el-input v-model="searchKey" class="w-50 m-2" size="large" placeholder="请输入查询人名字" :suffix-icon="Search" />
           <el-button type="primary" class="search" :disabled="searchKey == ''" @click="getPersonList">搜索</el-button>
+          <el-icon class="refresh" @click="getPersonList" size="20">
+            <Refresh />
+          </el-icon>
         </div>
       </div>
     </el-card>
@@ -92,8 +95,6 @@
         :disabled="disabled" :background="background" layout="total, sizes, prev, pager, next, jumper" :total="total"
         @size-change="getPersonList" @current-change="getPersonList" />
     </el-card>
-
-
     <!-- dialog弹出框 添加新成员 -->
     <el-dialog v-model="dialogVisible" title="添加新成员" width="40%" :before-close="handleClose">
       <template #footer>
@@ -211,6 +212,7 @@ const getPersonList = async () => {
   personList.value = res.data
   total.value = res.total
 }
+//上传图片处理事件回调
 const handleAvatarSuccess = (
   response,
   uploadFile
@@ -231,7 +233,7 @@ const beforeAvatarUpload = (rawFile) => {
 }
 
 
-//表单验证
+//表单验证规则
 const addPersonRules = reactive({
   name: [
     { required: true, message: '请输入姓名', trigger: 'blur' },
@@ -260,11 +262,13 @@ const addPersonRules = reactive({
   ]
 })
 
+//点击添加新成员按钮后处理的事件
 const addPerson = () => {
   dialogVisible.value = true
   edit.value = false
   clearForm()
 }
+//编辑完数据后点击添加按钮后处理的事件
 const addPersonFormSubmit = async (formEl) => {
   //清空表单数据
   if (!formEl) return
@@ -307,8 +311,6 @@ const handleEdit = (index, row) => {
   addPersonForm.position = row.position
   addPersonForm.is_in_school = row.is_in_school + ''
   addPersonForm.avatar_url_name = row.avatar_photo.split('.')[0]
-
-
 }
 //编辑请求发送
 const EditForm = async (formEl) => {
@@ -425,6 +427,15 @@ onMounted(() => {
 .image-slot {
   display: flex;
   align-items: center;
+}
+
+.refresh {
+  margin-left: 10px;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--el-color-primary);
+  }
 }
 </style>
 
