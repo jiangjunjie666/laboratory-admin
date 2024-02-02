@@ -5,7 +5,7 @@ import { ElMessage } from 'element-plus'
 import router from '@/router/index.js'
 //利用axios对象的create方法创建axios实例
 let request = axios.create({
-  withCredentials: true, //允许携带token
+  // withCredentials: true, //允许携带cookie
   baseURL: import.meta.env.VITE_APP_BASE_API, //请求
   timeout: 5000
 })
@@ -31,7 +31,6 @@ request.interceptors.response.use(
     //处理网络错误
     let msg = ''
     let status = error.response.status
-    console.log(error)
     //处理token失效
     switch (status) {
       case 401:

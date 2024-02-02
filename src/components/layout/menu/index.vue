@@ -7,7 +7,8 @@
             <!-- logo -->
             <div class="logo">
               <img src="@/assets/vue.svg" alt="">
-              <span v-if="!utilsStore.isCollapse">后台管理系统</span>
+              <span class="logo-text"
+                :class="{ 'logo-text-active': !utilsStore.isCollapse }">&nbsp;&nbsp;&nbsp;后台管理系统</span>
             </div>
             <el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
               background-color="#24262F" text-color="#fff" active-text-color="#409EFF  " :collapse="utilsStore.isCollapse"
@@ -44,6 +45,29 @@
                       <UserFilled />
                     </el-icon>
                     <span>人物管理</span>
+                  </el-menu-item>
+                </el-menu-item-group>
+              </el-sub-menu>
+
+              <el-sub-menu index="/limits">
+                <template #title>
+                  <el-icon>
+                    <Lock />
+                  </el-icon>
+                  <span>权限管理 </span>
+                </template>
+                <el-menu-item-group class="el-menu-item-group">
+                  <el-menu-item index="/limits/rolelimit" class="el-menu-item-text">
+                    <el-icon>
+                      <Coin />
+                    </el-icon>
+                    <span>角色权限管理</span>
+                  </el-menu-item>
+                  <el-menu-item index="/limits/personlimit" class="el-menu-item-text">
+                    <el-icon>
+                      <Paperclip />
+                    </el-icon>
+                    <span>人物权限管理</span>
                   </el-menu-item>
                 </el-menu-item-group>
               </el-sub-menu>
@@ -93,28 +117,7 @@
                   </el-menu-item>
                 </el-menu-item-group>
               </el-sub-menu>
-              <el-sub-menu index="/limits">
-                <template #title>
-                  <el-icon>
-                    <Lock />
-                  </el-icon>
-                  <span>权限管理 </span>
-                </template>
-                <el-menu-item-group class="el-menu-item-group">
-                  <el-menu-item index="/limits/rolelimit" class="el-menu-item-text">
-                    <el-icon>
-                      <Coin />
-                    </el-icon>
-                    <span>角色权限管理</span>
-                  </el-menu-item>
-                  <el-menu-item index="/limits/personlimit" class="el-menu-item-text">
-                    <el-icon>
-                      <Paperclip />
-                    </el-icon>
-                    <span>人物权限管理</span>
-                  </el-menu-item>
-                </el-menu-item-group>
-              </el-sub-menu>
+
 
               <el-sub-menu index="/competition">
                 <template #title>
@@ -157,10 +160,24 @@ const utilsStore = useUtilsStore()
 .menu-left {
   width: $menuWidth;
   height: 100vh;
-  min-height: 1200px;
   background-color: $menuBg;
   overflow: hidden;
   transition: all 0.3s; // 添加过渡效果
+
+  // min-width: 200px;
+  .logo-text {
+    opacity: 0;
+    /* 默认情况下不显示文字 */
+    overflow: hidden;
+    transition: opacity 0.3s ease;
+    /* 添加过渡效果，适当调整过渡时间和缓动函数 */
+  }
+
+  .logo-text-active {
+    opacity: 1;
+    transition: opacity 1s ease;
+    /* 类名为 .logo-text-active 时显示文字 */
+  }
 
   // 根据 isCollapse 设置不同的宽度
   &.collapsed {
@@ -176,6 +193,7 @@ const utilsStore = useUtilsStore()
 .logo {
   padding-left: 18px;
   padding-top: 10px;
+  display: flex;
 
   img {
     width: 30px;

@@ -1,7 +1,7 @@
 export const navRoute = [
   {
     path: '/home',
-    name: 'home',
+    name: 'Home',
     component: () => import('@/views/Home/index.vue'),
     meta: {
       title: '首页',
@@ -10,7 +10,7 @@ export const navRoute = [
   },
   {
     path: '/data',
-    name: 'data',
+    name: 'Data',
     component: () => import('@/views/Data/index.vue'),
     meta: {
       title: '资料管理',
@@ -19,7 +19,7 @@ export const navRoute = [
   },
   {
     path: '/user',
-    name: 'user',
+    name: 'User',
     redirect: '/user/roleplay',
     meta: {
       title: '用户管理',
@@ -28,7 +28,7 @@ export const navRoute = [
     children: [
       {
         path: '/user/roleplay',
-        name: 'roleplay',
+        name: 'RolePlay',
         component: () => import('@/views/User/RolePlay/index.vue'),
         meta: {
           title: '角色管理',
@@ -37,7 +37,7 @@ export const navRoute = [
       },
       {
         path: '/user/person',
-        name: 'person',
+        name: 'Person',
         component: () => import('@/views/User/Person/index.vue'),
         meta: {
           title: '人物管理',
@@ -48,7 +48,7 @@ export const navRoute = [
   },
   {
     path: '/inform',
-    name: 'inform',
+    name: 'Inform',
     redirect: '/inform/news',
     meta: {
       title: '通知管理',
@@ -57,7 +57,7 @@ export const navRoute = [
     children: [
       {
         path: '/inform/news',
-        name: 'news',
+        name: 'News',
         component: () => import('@/views/Inform/News/index.vue'),
         meta: {
           title: '新闻管理',
@@ -66,7 +66,7 @@ export const navRoute = [
       },
       {
         path: '/inform/notice',
-        name: 'notice',
+        name: 'Notice',
         component: () => import('@/views/Inform/Notice/index.vue'),
         meta: {
           title: '公告管理',
@@ -77,7 +77,7 @@ export const navRoute = [
   },
   {
     path: '/competition',
-    name: 'competition',
+    name: 'Competition',
     redirect: '/competition/event',
     meta: {
       title: '竞赛管理',
@@ -86,7 +86,7 @@ export const navRoute = [
     children: [
       {
         path: '/competition/event',
-        name: 'event',
+        name: 'Event',
         component: () => import('@/views/Competition/CompetitionEvent/index.vue'),
         meta: {
           title: '竞赛活动管理',
@@ -95,7 +95,7 @@ export const navRoute = [
       },
       {
         path: '/competition/winner',
-        name: 'winner',
+        name: 'Winner',
         component: () => import('@/views/Competition/CompetitionWinner/index.vue'),
         meta: {
           title: '竞赛获奖管理',
@@ -106,7 +106,7 @@ export const navRoute = [
   },
   {
     path: '/limits',
-    name: 'limits',
+    name: 'Limits',
     redirect: '/limits/personlimit',
     meta: {
       title: '权限管理',
@@ -115,7 +115,7 @@ export const navRoute = [
     children: [
       {
         path: '/limits/personlimit',
-        name: 'personlimit',
+        name: 'PersonLimit',
         component: () => import('@/views/Limits/PersonLimit/index.vue'),
         meta: {
           title: '人物权限管理',
@@ -124,7 +124,7 @@ export const navRoute = [
       },
       {
         path: '/limits/rolelimit',
-        name: 'rolelimit',
+        name: 'RoleLimit',
         component: () => import('@/views/Limits/RolePlayLimit/index.vue'),
         meta: {
           title: '角色权限管理',
@@ -135,7 +135,7 @@ export const navRoute = [
   },
   {
     path: '/basics',
-    name: 'basics',
+    name: 'Basics',
     redirect: '/basics/general',
     meta: {
       title: '基础管理',
@@ -144,7 +144,7 @@ export const navRoute = [
     children: [
       {
         path: '/basics/slides',
-        name: 'slides',
+        name: 'Slides',
         component: () => import('@/views/Basics/Slides/index.vue'),
         meta: {
           title: '轮播图管理',
@@ -153,7 +153,7 @@ export const navRoute = [
       },
       {
         path: '/basics/general',
-        name: 'general',
+        name: 'General',
         component: () => import('@/views/Basics/General/index.vue'),
         meta: {
           title: '基础信息管理',

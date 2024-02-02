@@ -13,7 +13,9 @@
     "@vueuse/core": "^10.7.1",
     "axios": "^1.6.5",
     "element-plus": "^2.4.4",
+    "nprogress": "^0.2.0",
     "pinia": "^2.1.7",
+    "reset-scss": "^1.0.0",
     "vanta": "^0.5.24",
     "vue": "^3.3.11",
     "vue-router": "^4.2.5"

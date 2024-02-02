@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box1 {
+      display: flex;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .a {
+      width: 200px;
+      height: 100vh;
+      background-color: pink;
+      position: fixed;
+    }
+
+    .box1 .box2 {
+      display: flex;
+      flex-direction: column;
+
+    }
+
+    .box1 .box2 .b {
+      width: 800px;
+      height: 200px;
+      background-color: blue;
+      margin-left: 240px;
+    }
+
+    .box1 .box2 .c {
+      margin-left: 240px;
+      width: 800px;
+      height: 800px;
+      background-color: red;
+    }
+
+    .box1 .active {
+      width: 100px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box1">
+    <div class="a active"></div>
+    <div class="box2">
+      <div class="b"></div>
+      <div class="c"></div>
+    </div>
+  </div>
+
+</body>
+
+</html>

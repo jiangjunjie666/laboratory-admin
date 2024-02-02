@@ -1,26 +1,48 @@
 //左侧导航栏的width
-$menuWidth:250px;
+$menuWidth: 250px;
 //左侧导航栏收起的宽度
-$collapseMenuWidth:64px;
+$collapseMenuWidth: 64px;
 //左侧导航栏的颜色
-$menuBg:#24262F;
+$menuBg: #24262f;
 //左侧导航栏的字体颜色
-$menuText:#bfcbd9;
+$menuText: #bfcbd9;
 //左侧导航栏的激活字体颜色
-$menuActiveText:#409EFF;
+$menuActiveText: #409eff;
 //左侧分组展开背景颜色
-$groupOpenBg:#191B21;
+$groupOpenBg: #191b21;
 //左侧分组展开的字体颜色
-$groupOpenText:#C0C4CC;
+$groupOpenText: #c0c4cc;
 //顶部导航的高度
-$headerHeight:60px;
+$headerHeight: 60px;
 //顶部导航的背景色
-$headerBg:#fff;
-//顶部导航的字体颜色  
-$headerText:#333;
+$headerBg: #fff;
+//顶部导航的字体颜色
+$headerText: #333;
 //顶部导航的激活字体颜色
-$headerActiveText:#409EFF;
+$headerActiveText: #409eff;
 //普通文字显示的颜色
-$textColor:#8b8787;
+$textColor: #8b8787;
 //标题统一文字大小
-$titleSize:25px
+$titleSize: 25px;
+
+//混入 操作按钮列表样式
+@mixin useBtnList {
+  .btn-list {
+    display: flex;
+    align-items: center;
+
+    .ipt {
+      width: 300px;
+      margin-left: 200px;
+    }
+
+    .search {
+      margin-left: 20px;
+    }
+
+    .set-icon {
+      cursor: pointer;
+      margin-left: 10px;
+    }
+  }
+}

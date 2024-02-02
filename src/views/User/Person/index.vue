@@ -33,7 +33,12 @@
         <div class="foot">
           <p>人员搜索:</p>
           <el-input v-model="searchKey" class="w-50 m-2" size="large" placeholder="请输入查询人名字" :suffix-icon="Search" />
-          <el-button type="primary" class="search" :disabled="searchKey == ''" @click="getPersonList">搜索</el-button>
+          <el-button type="primary" class="search" :disabled="searchKey == ''" @click="getPersonList">
+            <el-icon>
+              <Search></Search>
+            </el-icon>
+            <span>搜索</span>
+          </el-button>
           <el-icon class="refresh" @click="getPersonList" size="20">
             <Refresh />
           </el-icon>
@@ -41,8 +46,14 @@
       </div>
     </el-card>
     <el-card class="tableData">
-      <el-button type="primary" class="add" @click="addPerson">添加新成员</el-button>
-      <el-table :data="personList" border="true" class="table" highlight-current-row="true" lazy="true" stripe="true">
+      <el-button type="primary" class="add" @click="addPerson">
+        <el-icon>
+          <Plus />
+        </el-icon>
+        <span>添加新成员</span>
+      </el-button>
+      <el-table :data="personList" border="true" class="table" highlight-current-row="true" lazy="true" stripe="true"
+        v-loading="loading">
         <el-table-column label="Id" prop="id" width="50" />
         <el-table-column label="姓名" prop="name" width="100" />
         <el-table-column label="性别" prop="gender" width="100" />
@@ -50,7 +61,7 @@
         <el-table-column label="照片">
           <template #default="scope">
             <el-image style="width: 70px; height: 50px" :src="`http://localhost:3000/images/${scope.row.avatar_photo}`"
-              fits="fill">
+              fits="fit">
               <template #error>
                 <div class="image-slot">
                   <el-icon>
@@ -157,7 +168,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from 'vue'
+import { ref, onMounted, reactive, computed } from 'vue'
 import { reqGetPersonList, reqAddPerson, reqEditPerson, reqDeletePerson } from '@/api/users.js'
 import { ElMessage } from 'element-plus'
 import { Search } from '@element-plus/icons-vue'
@@ -180,6 +191,11 @@ const dialogVisible = ref(false)
 const ruleFormRef = ref()
 //控制是否是编辑状态
 const edit = ref(false)
+
+//计算出loading
+const loading = computed(() => {
+  return personList.value.length === 0
+})
 //表单数据
 const addPersonForm = reactive({
   id: '',
@@ -194,6 +210,7 @@ const addPersonForm = reactive({
 })
 //获取table数据
 const getPersonList = async () => {
+  personList.value = []
   let params = {
     page: page.value,
     pageSize: pageSize.value,
@@ -368,6 +385,16 @@ const clearForm = () => {
   addPersonForm.is_in_school = ''
   addPersonForm.avatar_url_name = ''
 }
+
+//计算出预览图片的数据
+// const imgUrlList = computed(() => {
+//   const imgUrl = []
+//   personList.value.forEach(item => {
+//     imgUrl.push(import.meta.env.VITE_SERVER + '/images/' + item.avatar_photo)
+//   })
+//   return imgUrl
+// })
+// console.log(imgUrlList);
 onMounted(() => {
   getPersonList()
 })

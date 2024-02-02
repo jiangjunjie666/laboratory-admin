@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card>
-      <h1>现存的轮播图图片</h1>
+      <Title title="现存的轮播图"></Title>
       <el-scrollbar always="true" min-size="100" view-class="scrollbar-demo-item">
         <div class="img-list">
           <el-image class="img-item" style="width: 500px; height: 400px; " :src="item.img_url" :zoom-rate="1.2"
@@ -13,7 +13,7 @@
       <div class="manage-list">
         <div class="left">
           <div class="delete">
-            <p class="delete-img">删除图片</p>
+            <Title title="删除图片"></Title>
             <div class="img_search">
               <el-input placeholder="请输入图片描述" v-model="searchKey" :suffix-icon="Search"></el-input>
             </div>
@@ -26,7 +26,7 @@
               </el-image>
               <p>{{ i.img_description }}</p>
               <el-popconfirm title="你确定要删除嘛？" confirm-button-text="Yes" cancel-button-text="No" :icon="InfoFilled"
-                icon-color="#626AEF" @confirm="deleteImg(i.id)">
+                icon-color="#626AEF" @confirm="deleteImg(i)">
                 <template #reference>
                   <el-button type="danger" class="img-btn">删除</el-button>
                 </template>
@@ -35,7 +35,7 @@
           </el-scrollbar>
         </div>
         <div class="right">
-          <p class="add-img">添加新图片</p>
+          <Title title="添加新图片"></Title>
           <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules">
             <el-form-item label="图片描述" prop="name">
               <el-input v-model="ruleForm.name" style="width:300px"></el-input>
@@ -58,7 +58,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import { reqGetBannerList, reqDeleteBanner } from '@/api/basics.js'
 import { Search, InfoFilled } from '@element-plus/icons-vue'
@@ -121,18 +121,20 @@ const getBannerList = async () => {
 //关键词搜索某数据
 const getImgList = () => {
   //在srcList中查找将其放置第一位
-  const key = srcList.value.find(item => {
-    return item.img_description === searchKey.value
+  const keyArr = srcList.value.filter(item => {
+    return item.img_description.includes(searchKey.value)
   })
-  if (!key) {
+  if (!keyArr) {
     return ElMessage({
       type: 'error',
       message: '未找到相关图片'
     })
   } else {
-    const index = srcList.value.indexOf(key)
-    srcList.value.splice(index, 1)
-    srcList.value.unshift(key)
+    keyArr.forEach(item => {
+      const index = srcList.value.indexOf(item)
+      srcList.value.splice(index, 1)
+      srcList.value.unshift(item)
+    })
     ElMessage({
       type: 'success',
       message: '成功找到图片，已经放置最上方'
@@ -141,9 +143,9 @@ const getImgList = () => {
 }
 
 //删除某图片
-const deleteImg = async (id) => {
-  // console.log(data);
-  const res = await reqDeleteBanner(id)
+const deleteImg = async (query) => {
+  console.log(query);
+  const res = await reqDeleteBanner(query.id, query.img_url)
   if (res.code !== 200) {
     return ElMessage({
       type: 'error',
@@ -153,7 +155,7 @@ const deleteImg = async (id) => {
   else {
     //将srcList中的数据删除
     srcList.value = srcList.value.filter(item => {
-      return item.id !== id
+      return item.id !== query.id
     })
     ElMessage({
       type: 'success',
@@ -162,18 +164,12 @@ const deleteImg = async (id) => {
   }
 }
 
-
 onMounted(() => {
   getBannerList()
 })
 </script>
 
 <style lang="scss" scoped>
-h1 {
-  font-size: $titleSize;
-  margin: 0 0 10px 0;
-}
-
 .scrollbar-demo-item {
 
   //深度监听el-scrollbar__thumb
@@ -232,15 +228,12 @@ h1 {
       }
     }
 
-    .delete-img {
-      font-size: $titleSize;
-      margin: 0 0 10px 0;
-    }
+
 
     .left-img {
       display: flex;
       align-items: center;
-      margin: 0 0 10px 15px;
+      margin: 0 10px 10px 15px;
 
       // 添加一个动画效果
       &:hover {
@@ -276,10 +269,7 @@ h1 {
   .right {
     width: 45%;
 
-    .add-img {
-      font-size: $titleSize;
-      margin: 0 0 10px 0;
-    }
+
 
     .ipt {
       display: flex;

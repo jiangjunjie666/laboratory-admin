@@ -176,6 +176,8 @@ onBeforeUnmount(() => {
     margin: 10px auto;
     background-color: rgba(0, 0, 0, 0.1);
     text-align: center;
+    border: 1px solid #409EFF;
+    color: #fff;
 
     &:hover {
       background-color: #409EFF;

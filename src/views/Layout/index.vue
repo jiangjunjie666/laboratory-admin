@@ -3,13 +3,16 @@
     <!-- 整个屏幕的布局 -->
     <!-- 左侧导航栏 -->
     <!-- <div class="menu-left" :class="{ collapsed: isCollapse }"> -->
-    <Menu></Menu>
+    <div class="menu">
+      <Menu></Menu>
+    </div>
+
     <!-- </div> -->
     <div class="menu-right" :class="{ iscollpsed: utilsStore.isCollapse }">
       <!-- 顶部导航栏 -->
       <Tabbar></Tabbar>
       <!-- 内容区域 -->
-      <div class="content">
+      <div class="content" :class="{ iscollpsed: utilsStore.isCollapse }">
         <router-view></router-view>
       </div>
     </div>
@@ -30,19 +33,24 @@ const utilsStore = useUtilsStore()
   width: 100%;
   height: 100%;
 
+  .menu {
+    position: fixed;
+  }
+
   .menu-right {
     width: calc(100% - #{$menuWidth});
     height: 100vh;
     transition: all 0.3s; // 添加过渡效果
+    margin-left: $menuWidth;
 
     &.iscollpsed {
       width: calc(100% - #{$collapseMenuWidth});
+      margin-left: $collapseMenuWidth;
     }
 
     .content {
       height: calc(100% - #{$headerHeight});
       width: 100%;
-      // background-color: #F0F2F5;
       padding: 10px;
     }
   }

@@ -20,20 +20,39 @@
       </div>
       <div class="setting">
         <!-- 切换模式 -->
-        <el-switch v-model="utilsStore.isDark" :active-action-icon="Moon" :inactive-action-icon="Sunny" class="light"
+        <el-switch v-model="utilsStore.isDark" class="switch" :active-action-icon="Moon" :inactive-action-icon="Sunny"
           style="--el-switch-on-color: #111; --el-switch-off-color: #ccc" @change="toggle()" />
         <!-- 刷新图标  -->
-        <el-icon class="set-icon">
-          <Refresh />
-        </el-icon>
+
+        <el-tooltip class="box-item" effect="dark" content="刷新页面" placement="top-start">
+          <el-icon class="set-icon">
+            <Refresh />
+          </el-icon>
+        </el-tooltip>
         <!-- 全屏图标 -->
-        <el-icon class="set-icon">
-          <Aim />
-        </el-icon>
+
+        <el-tooltip class="box-item" effect="dark" content="全屏页面" placement="top-start">
+          <el-icon class="set-icon">
+            <Aim />
+          </el-icon>
+        </el-tooltip>
+        <!-- 消息 -->
+
+        <el-tooltip class="box-item" effect="dark" content="待处理信息" placement="top-start">
+          <el-icon class="set-icon">
+            <Bell />
+          </el-icon>
+        </el-tooltip>
+
+        <el-tooltip class="box-item" effect="dark" content="设置" placement="top-start">
+          <el-icon class="set-icon">
+            <Setting />
+          </el-icon>
+        </el-tooltip>
         <!-- 头像 -->
-        <img src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" alt="" class="avatar">
+        <img :src="`http://localhost:3000/images/userAvatar/${userStore.userinfo.avatar}`" alt="" class="avatar">
         <el-dropdown class="dropdown">
-          <span class="el-dropdown-link">
+          <span class="el-dropdown-link" style="cursor: pointer">
             Admin
             <el-icon class="el-icon--right">
               <arrow-down />
@@ -41,7 +60,7 @@
           </span>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item>退出登录</el-dropdown-item>
+              <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -60,15 +79,17 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, watchEffect } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { ArrowRight, Sunny, Moon } from '@element-plus/icons-vue'
 import { useUtilsStore } from '@/store/modules/utils.js';
+import { useUserStore } from '@/store/modules/users.js'
 import { useDark, useToggle } from "@vueuse/core";
 import { useRoute, useRouter } from 'vue-router'
 import { navRoute } from '@/router/route/navRoute.js'
 const $route = useRoute()
 const $router = useRouter()
 const utilsStore = useUtilsStore()
+const userStore = useUserStore()
 const breadArr = ref([])
 const isDark = useDark({
   // 存储到localStorage/sessionStorage中的Key 根据自己的需求更改
@@ -82,21 +103,22 @@ const isDark = useDark({
 const toggle = useToggle(isDark);
 
 //监听path是否发生改变
-// watch(() => $route.path, () => {
-//   utilsStore.saveVisitedRoutes($route)
-//   getBread()
-// })
-watchEffect(() => {
+watch(() => $route.path, () => {
   utilsStore.saveVisitedRoutes($route)
   getBread()
 })
+// watchEffect(() => {
+//   utilsStore.saveVisitedRoutes($route)
+//   getBread()
+// })
 //获取到当前的path
 function getBread() {
   //先清空数据
   breadArr.value = []
   const pathArr = $route.path.split('/')
+  console.log(pathArr);
   navRoute.forEach(item => {
-    if (item.name == pathArr[1]) {
+    if (item.name.toLowerCase() == pathArr[1]) {
       // console.log(item);
       //将需要的数据存放到breadArr中
       const newarr = {
@@ -108,7 +130,7 @@ function getBread() {
       //再次遍历item的children
       if (item.children) {
         item.children.forEach(item => {
-          if (item.name == pathArr[2]) {
+          if (item.name.toLowerCase() == pathArr[2]) {
             const newarr = {
               path: item.path,
               name: item.name,
@@ -126,6 +148,12 @@ function getBread() {
 //监听tag标签实现路由跳转
 const goRoute = (path) => {
   $router.push({ path: path })
+}
+
+//退出登录
+const logout = () => {
+  localStorage.removeItem('userinfo')
+  $router.push('/login')
 }
 onMounted(() => {
   getBread()
@@ -155,7 +183,12 @@ onMounted(() => {
   .setting {
     //靠右
     margin-left: auto;
+    // margin-top: 20px;
     margin-right: 10px; // 可以添加适当的右边距
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
 
     .set-icon {
       font-size: 20px;
@@ -167,12 +200,13 @@ onMounted(() => {
       }
     }
 
+
     .avatar {
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      margin-bottom: 20px;
       margin-right: 10px;
+      margin-top: 10px;
 
       .img {
         margin: 25px;
@@ -183,8 +217,12 @@ onMounted(() => {
       margin: 20px 0 0 0;
     }
 
-    .light {
-      margin: 10px 20px 17px 0;
+    .switch {
+      margin: 35px 20px 17px 0;
+
+      :deep(.el-switch__core) {
+        border-color: #ccc;
+      }
     }
   }
 
