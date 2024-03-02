@@ -3,6 +3,8 @@ import request from '@/utils/request.js'
 const API = {
   //登录接口
   LOGIN: '/api/login',
+  //退出登录
+  LOGOUT: '/api/logout',
   //获取人员信息
   GETPERSONLIST: '/person/personList',
   //新增人员
@@ -22,3 +24,5 @@ export const reqAddPerson = (data) => request.post(API.ADDPERSON, data)
 export const reqEditPerson = (data) => request.post(API.EDITPERSON, data)
 
 export const reqDeletePerson = (id) => request.get(API.DELETEPERSON + 'id=' + id)
+
+export const reqLogout = (data) => request.post(API.LOGOUT, data)

@@ -147,7 +147,7 @@ export const navRoute = [
         name: 'Slides',
         component: () => import('@/views/Basics/Slides/index.vue'),
         meta: {
-          title: '轮播图管理',
+          title: '轮播图图片管理',
           icon: 'PictureFilled'
         }
       },

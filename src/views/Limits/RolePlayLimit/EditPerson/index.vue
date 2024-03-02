@@ -1,18 +1,18 @@
 <template>
   <div class="box">
     <el-dialog v-model="props.dialogVisibleEdit" title="编辑角色信息" width="30%" @close="closeDialog">
-      <el-form :model="editData" ref="editRuleFormRef" :rules="editRules" label-width="100px" label-position="left">
-        <el-form-item label="用户名" prop="username">
-          <el-input placeholder="请输入内容" v-model="editData.username"></el-input>
+      <el-form :model="editData" ref="editRuleFormRef" :rules="editRules" label-width="80px" label-position="left">
+        <el-form-item label="角色名" prop="name">
+          <el-input placeholder="请输入内容" v-model="editData.name"></el-input>
         </el-form-item>
-        <el-form-item label="管理员名称" prop="role_name">
-          <el-input placeholder="请输入内容" v-model="editData.role_name"></el-input>
+        <el-form-item label="角色作用" prop="job">
+          <el-input placeholder="请输入内容" v-model="editData.job"></el-input>
         </el-form-item>
       </el-form>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisibleEdit = false">退出</el-button>
-          <el-button type="primary" :disabled="editData.username == ''" @click="EditBtn(editRuleFormRef)">
+          <el-button type="primary" :disabled="editData.name == ''" @click="EditBtn(editRuleFormRef)">
             确认修改
           </el-button>
         </span>
@@ -24,7 +24,7 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus';
-import { reqEditAdmin } from '@/api/role.js'
+import { reqEditRole } from '@/api/role.js'
 //接收自定义事件
 const $emit = defineEmits('editHandler')
 const editRuleFormRef = ref()
@@ -41,11 +41,13 @@ const props = defineProps({
 })
 //表单检验
 const editRules = reactive({
-  username: [
-    { required: true, message: '请输入用户名', trigger: 'blur' }
+  name: [
+    { required: true, message: '请输入用户名', trigger: 'blur' },
+    { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
   ],
-  role_name: [
-    { required: true, message: '请输入管理员名称', trigger: 'blur' }
+  job: [
+    { required: true, message: '请输入管理员名称', trigger: 'blur' },
+    { min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur' }
   ]
 })
 
@@ -54,7 +56,7 @@ const EditBtn = async (formEl) => {
   if (!formEl) return
   await formEl.validate(async (valid, fields) => {
     if (!valid) return
-    const res = await reqEditAdmin(props.editData)
+    const res = await reqEditRole(props.editData)
     if (res.code !== 200) {
       return ElMessage({
         type: 'error',

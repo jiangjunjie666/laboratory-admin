@@ -53,7 +53,7 @@
         <img :src="`http://localhost:3000/images/userAvatar/${userStore.userinfo.avatar}`" alt="" class="avatar">
         <el-dropdown class="dropdown">
           <span class="el-dropdown-link" style="cursor: pointer">
-            Admin
+            {{ userStore.userinfo.username }}
             <el-icon class="el-icon--right">
               <arrow-down />
             </el-icon>
@@ -81,11 +81,13 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
 import { ArrowRight, Sunny, Moon } from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
 import { useUtilsStore } from '@/store/modules/utils.js';
 import { useUserStore } from '@/store/modules/users.js'
 import { useDark, useToggle } from "@vueuse/core";
 import { useRoute, useRouter } from 'vue-router'
 import { navRoute } from '@/router/route/navRoute.js'
+import { reqLogout } from '@/api/users.js'
 const $route = useRoute()
 const $router = useRouter()
 const utilsStore = useUtilsStore()
@@ -107,10 +109,7 @@ watch(() => $route.path, () => {
   utilsStore.saveVisitedRoutes($route)
   getBread()
 })
-// watchEffect(() => {
-//   utilsStore.saveVisitedRoutes($route)
-//   getBread()
-// })
+
 //获取到当前的path
 function getBread() {
   //先清空数据
@@ -151,9 +150,20 @@ const goRoute = (path) => {
 }
 
 //退出登录
-const logout = () => {
-  localStorage.removeItem('userinfo')
-  $router.push('/login')
+const logout = async () => {
+  const data = {
+    id: userStore.userinfo.id,
+    token: userStore.userinfo.token
+  }
+  const res = await reqLogout(data)
+  if (res.code !== 200) {
+    return ElMessage.error(res.message)
+  } else {
+    ElMessage.success(res.message)
+    localStorage.removeItem('userinfo')
+    $router.push('/login')
+  }
+
 }
 onMounted(() => {
   getBread()

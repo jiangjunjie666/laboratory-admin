@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button :type="props.type" class="button" :disabled="props.disable" @click="handleClick">
+    <el-button :type="props.type" :size="props.btnSize" class="button" :disabled="props.disable" @click="handleClick">
       <el-icon v-if="props.icon" :size="props.size">
         <component :is="props.icon"></component>
       </el-icon>
@@ -34,13 +34,17 @@ const props = defineProps({
   disable: {
     type: Boolean,
     default: false
+  },
+  btnSize: {
+    type: String,
+    default: 'mini'
   }
 });
 
 const handleClick = () => {
   // 只有在按钮没有被禁用时才执行点击事件
   if (!props.disable) {
-    $emit('btnClick');
+    $emit('MybtnClick');
   }
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="menu-left" :class="{ collapsed: utilsStore.isCollapse }">
-      <el-scrollbar height="800px">
+      <el-scrollbar height="900px">
         <el-row class="tac">
           <el-col>
             <!-- logo -->

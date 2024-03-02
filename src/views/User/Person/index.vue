@@ -33,12 +33,7 @@
         <div class="foot">
           <p>人员搜索:</p>
           <el-input v-model="searchKey" class="w-50 m-2" size="large" placeholder="请输入查询人名字" :suffix-icon="Search" />
-          <el-button type="primary" class="search" :disabled="searchKey == ''" @click="getPersonList">
-            <el-icon>
-              <Search></Search>
-            </el-icon>
-            <span>搜索</span>
-          </el-button>
+          <MyButton type="primary" icon="Refresh" text="搜索" :disable="searchKey == ''" @MybtnClick="getPersonList" />
           <el-icon class="refresh" @click="getPersonList" size="20">
             <Refresh />
           </el-icon>
@@ -46,12 +41,7 @@
       </div>
     </el-card>
     <el-card class="tableData">
-      <el-button type="primary" class="add" @click="addPerson">
-        <el-icon>
-          <Plus />
-        </el-icon>
-        <span>添加新成员</span>
-      </el-button>
+      <MyButton type="primary" text="添加新成员" @MybtnClick="addPerson" icon="Plus" class="add" />
       <el-table :data="personList" border="true" class="table" highlight-current-row="true" lazy="true" stripe="true"
         v-loading="loading">
         <el-table-column label="Id" prop="id" width="50" />
@@ -102,9 +92,9 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination v-model:current-page="page" v-model:page-size="pageSize" :page-sizes="[3, 5, 7, 9]" :small="small"
-        :disabled="disabled" :background="background" layout="total, sizes, prev, pager, next, jumper" :total="total"
-        @size-change="getPersonList" @current-change="getPersonList" />
+      <el-pagination v-model:current-page="page" background small v-model:page-size="pageSize" :page-sizes="[3, 5, 7, 9]"
+        :small="small" :disabled="disabled" :background="background" layout="total, sizes, prev, pager, next, jumper"
+        :total="total" @size-change="getPersonList" @current-change="getPersonList" />
     </el-card>
     <!-- dialog弹出框 添加新成员 -->
     <el-dialog v-model="dialogVisible" title="添加新成员" width="40%" :before-close="handleClose">

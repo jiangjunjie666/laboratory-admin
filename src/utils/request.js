@@ -31,10 +31,11 @@ request.interceptors.response.use(
     //处理网络错误
     let msg = ''
     let status = error.response.status
+    console.log(error)
     //处理token失效
     switch (status) {
       case 401:
-        msg = 'token过期'
+        msg = error.response.data
         //实现路由跳转
         router.push('/login')
         localStorage.removeItem('userinfo')
