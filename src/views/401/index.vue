@@ -4,7 +4,7 @@
       <el-row :gutter="20">
         <el-col :lg="12" :md="12" :sm="24" :xl="12" :xs="24">
           <div class="pic-error">
-            <img alt="401" class="pic-error-parent" src="@/assets/error_images/404.png" />
+            <img alt="401" class="pic-error-parent" src="@/assets/error_images/401.png" />
             <img alt="401" class="pic-error-child left" src="@/assets/error_images/cloud.png" />
             <img alt="401" class="pic-error-child" src="@/assets/error_images/cloud.png" />
             <img alt="401" class="pic-error-child" src="@/assets/error_images/cloud.png" />
@@ -36,11 +36,12 @@ import {
   useRouter
 } from 'vue-router';
 const router = useRouter()
+
 const jumpTime = ref(5)
 const oops = ref('抱歉!')
-const headline = ref('当前页面不存在...')
-const info = ref('请检查您输入的网址是否正确，或点击下面的按钮返回首页。')
-const btn = ref('返回首页')
+const headline = ref('您没有操作权限...')
+const info = ref('当前帐号没有操作权限,请联系管理员。')
+const btn = ref('返回')
 const timer = ref(0)
 
 const timeChange = () => {
@@ -213,7 +214,7 @@ onUnmounted(() => {
         font-size: 32px;
         font-weight: bold;
         line-height: 40px;
-        color: #409eff;
+        color: #4097ff;
         opacity: 0;
         animation-name: slideUp;
         animation-duration: 0.5s;
@@ -255,7 +256,7 @@ onUnmounted(() => {
         color: #fff;
         text-align: center;
         cursor: pointer;
-        background: #409eff;
+        background: #4097ff;
         border-radius: 100px;
         opacity: 0;
         animation-name: slideUp;

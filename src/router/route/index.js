@@ -21,6 +21,11 @@ export const constantRouter = [
     redirect: '/404'
   },
   {
+    path: '/401',
+    name: '401',
+    component: () => import('@/views/401/index.vue')
+  },
+  {
     path: '/',
     redirect: '/home',
     name: 'layout',
