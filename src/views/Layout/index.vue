@@ -13,7 +13,7 @@
       <Tabbar></Tabbar>
       <!-- 内容区域 -->
       <div class="content" :class="{ iscollpsed: utilsStore.isCollapse }">
-        <router-view class="animate__backInRight animate__animated"></router-view>
+        <router-view class="animate__fadeInRightBig animate__animated"></router-view>
       </div>
     </div>
   </div>

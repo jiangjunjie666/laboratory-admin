@@ -25,15 +25,15 @@
         <!-- 刷新图标  -->
 
         <el-tooltip class="box-item" effect="dark" content="刷新页面" placement="top-start">
-          <el-icon class="set-icon">
+          <el-icon class="set-icon" @click="refresh">
             <Refresh />
           </el-icon>
         </el-tooltip>
         <!-- 全屏图标 -->
 
         <el-tooltip class="box-item" effect="dark" content="全屏页面" placement="top-start">
-          <el-icon class="set-icon">
-            <Aim />
+          <el-icon class="set-icon" @click="fullScreen">
+            <FullScreen />
           </el-icon>
         </el-tooltip>
         <!-- 消息 -->
@@ -163,7 +163,20 @@ const logout = async () => {
     localStorage.removeItem('userinfo')
     $router.push('/login')
   }
-
+}
+//刷新页面
+const refresh = () => {
+  $router.go(0)
+}
+//全屏页面
+const fullScreen = () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen(); // 进入全屏模式
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen(); // 退出全屏模式
+    }
+  }
 }
 onMounted(() => {
   getBread()

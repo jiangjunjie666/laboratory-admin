@@ -17,6 +17,9 @@ dependencies:
   axios:
     specifier: ^1.6.5
     version: 1.6.5
+  echarts:
+    specifier: ^5.5.0
+    version: 5.5.0
   element-plus:
     specifier: ^2.4.4
     version: 2.4.4(vue@3.3.11)
@@ -26,9 +29,6 @@ dependencies:
   pinia:
     specifier: ^2.1.7
     version: 2.1.7(vue@3.3.11)
-  reset-scss:
-    specifier: ^1.0.0
-    version: 1.0.0
   vanta:
     specifier: ^0.5.24
     version: 0.5.24
@@ -664,6 +664,13 @@ packages:
     engines: {node: '>=0.4.0'}
     dev: false
 
+  /echarts@5.5.0:
+    resolution: {integrity: sha512-rNYnNCzqDAPCr4m/fqyUFv7fD9qIsd50S6GDFgO1DxZhncCsNsG7IfUlAlvZe5oSEQxtsjnHiUuppzccry93Xw==}
+    dependencies:
+      tslib: 2.3.0
+      zrender: 5.5.0
+    dev: false
+
   /element-plus@2.4.4(vue@3.3.11):
     resolution: {integrity: sha512-TlKubXJgxwhER0dw+8ULn9hr9kZjraV4R6Q/eidwWUwCKxwXYPBGmMKsZ/85tlxlhMYbcLZd/YZh6G3QkHX4fg==}
     peerDependencies:
@@ -900,10 +907,6 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /reset-scss@1.0.0:
-    resolution: {integrity: sha512-hYwV8ttUVWuUy9C3wX7oS4YV3440H7Vuuy7INE/bz8UifUbPt6mhamyKC240cK3+J0ry9xrApuuyzH0CSu4J4g==}
-    dev: false
-
   /rollup@4.9.4:
     resolution: {integrity: sha512-2ztU7pY/lrQyXSCnnoU4ICjT/tCG9cdH3/G25ERqE3Lst6vl2BCM5hL2Nw+sslAvAf+ccKsAq1SkKQALyqhR7g==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
@@ -951,6 +954,10 @@ packages:
     dependencies:
       is-number: 7.0.0
     dev: true
+
+  /tslib@2.3.0:
+    resolution: {integrity: sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==}
+    dev: false
 
   /vanta@0.5.24:
     resolution: {integrity: sha512-fvieEbHy1ZS23zrcX+topzqAgA4Uct1enngOEWLFBgs9TtOf6RDFOYatH7KSVdrABzQDMCQ5myQy+nTSZZwLzg==}
@@ -1029,3 +1036,9 @@ packages:
       '@vue/runtime-dom': 3.3.11
       '@vue/server-renderer': 3.3.11(vue@3.3.11)
       '@vue/shared': 3.3.11
+
+  /zrender@5.5.0:
+    resolution: {integrity: sha512-O3MilSi/9mwoovx77m6ROZM7sXShR/O/JIanvzTwjN3FORfLSr81PsUGd7jlaYOeds9d8tw82oP44+3YucVo+w==}
+    dependencies:
+      tslib: 2.3.0
+    dev: false

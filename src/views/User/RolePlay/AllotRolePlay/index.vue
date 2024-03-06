@@ -8,6 +8,7 @@
       </template>
       <div class="allotTable">
         <el-popover placement="bottom" :width="200" trigger="hover" v-for="(role) in roleList" :key="role.id">
+
           <template #reference>
             <el-checkbox class="allotRole" @mouseenter="handleMouseEnter(role)" @change="handleCheck(role)"
               v-model="role.checked" :label="role.name" size="large" border />

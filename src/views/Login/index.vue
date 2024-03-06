@@ -126,12 +126,13 @@ onMounted(() => {
     minWidth: 200.00,
     scale: 1.00,
     scaleMobile: 1.00,
-    backgroundColor: 0x7152a,
-    color1: 0xc2ff,
-    color2: 0x2a3031,
-    colorMode: "variance",
-    backgroundAlpha: 0.98,
-    birdSize: 0.50,
+    color1: 0x5f3c3c,
+    color2: 0x33be7b,
+    birdSize: 1.60,
+    separation: 41.00,
+    alignment: 22.00,
+    cohesion: 35.00,
+    quantity: 4.00
   })
 });
 //页面关闭后 注销three动画效果 影响性能

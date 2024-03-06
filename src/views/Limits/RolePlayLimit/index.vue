@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="role">
     <el-card class="top-card">
       <template #header>
         <div>
@@ -9,6 +9,7 @@
       <div class="btn-list">
         <MyButton type="primary" icon="Plus" text="新增角色" @click="dialogVisibleAdd = true" />
         <el-popconfirm title="确定要删除嘛？" @confirm="handleDeleteAll">
+
           <template #reference>
             <MyButton type="danger" icon="Delete" text="批量删除" @click="handleDeleteAll" />
           </template>
@@ -30,6 +31,7 @@
         <el-table-column label="角色名称" prop="name" width="150" align="center" />
         <el-table-column label="角色描述" prop="job" width="200" align="center" />
         <el-table-column property="addressRole" label="拥有的路由权限" show-overflow-tooltip align="center">
+
           <template #default="scope">
             <div class="tag-list">
               <el-tag class="tag" type="error" v-if="!scope.row.route_permissions">暂无权限</el-tag>
@@ -42,6 +44,7 @@
           </template>
         </el-table-column>
         <el-table-column label="操作" width="300" align="center">
+
           <template #default="scope">
             <el-button size="small" @click="handleEdit(scope.$index, scope.row)" type="primary">
               <el-icon class="el-icon--right">
@@ -309,5 +312,10 @@ onMounted(() => {
   margin: 10px 0;
   display: flex;
   justify-content: center;
+}
+
+.role {
+  width: 100%;
+  height: 100%;
 }
 </style>

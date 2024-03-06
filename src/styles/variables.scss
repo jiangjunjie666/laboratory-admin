@@ -46,3 +46,28 @@ $titleSize: 25px;
     }
   }
 }
+
+@mixin useDisplayTitle {
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+
+    i {
+      font-size: 14px;
+      font-weight: bold;
+      color: #2697e2;
+    }
+    .right {
+      display: flex;
+      align-items: center;
+
+      span {
+        font-size: 13px;
+      }
+
+      p {
+        font-size: 20px;
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="top-card">
     <el-card>
       <template #header>
         <div class="card-header">
@@ -14,6 +14,7 @@
           <span>新增管理员</span>
         </el-button>
         <el-popconfirm title="确定要删除嘛？" @confirm="handleDeleteAll">
+
           <template #reference>
             <MyButton type="danger" :disable="multipleSelection.length == 0" icon="Delete" text="批量删除"></MyButton>
           </template>
@@ -36,6 +37,7 @@
         <el-table-column property="username" label="用户名" width="150" align="center" />
         <el-table-column property="role_name" label="职位名称" width="150" align="center" />
         <el-table-column property="allot_role" label="拥有的角色" width="220" align="center">
+
           <template #default="scope">
             <div class="tag-list">
               <el-tag class="tag" type="error" v-if="scope.row.allot_role.length == 0">暂无角色</el-tag>
@@ -46,16 +48,19 @@
           </template>
         </el-table-column>
         <el-table-column property="status" label="当前状态" align="center" width="120">
+
           <template #default="scope">
             <el-switch v-model="scope.row.status" size="large" @change="handleStatusChange(scope.row)" />
           </template>
         </el-table-column>
         <el-table-column property="online" label="是否在线" align="center" width="120">
+
           <template #default="scope">
             <el-switch v-model="scope.row.online" size="large" disabled />
           </template>
         </el-table-column>
         <el-table-column property="addressRole" label="拥有的路由权限" show-overflow-tooltip align="center">
+
           <template #default="scope">
             <div class="tag-list">
               <el-tag class="tag" type="error" v-if="scope.row.addressRole.length == 0">暂无权限</el-tag>
@@ -67,6 +72,7 @@
           </template>
         </el-table-column>
         <el-table-column label="操作" width="300" align="center">
+
           <template #default="scope">
             <el-button size="small" @click="handleEdit(scope.$index, scope.row)" type="primary">
               <el-icon class="el-icon--right">
@@ -396,5 +402,10 @@ onMounted(() => {
   margin: 10px;
   display: flex;
   justify-content: center;
+}
+
+.top-card {
+  width: 100%;
+  height: 100%;
 }
 </style>

@@ -9,6 +9,15 @@ export const navRoute = [
     }
   },
   {
+    path: '/date',
+    name: 'Date',
+    component: () => import('@/views/Date/index.vue'),
+    meta: {
+      title: '日期',
+      icon: 'Calendar'
+    }
+  },
+  {
     path: '/data',
     name: 'Data',
     component: () => import('@/views/Data/index.vue'),

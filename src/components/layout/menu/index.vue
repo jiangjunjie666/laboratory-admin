@@ -20,6 +20,12 @@
                 </el-icon>
                 <span>首页</span>
               </el-menu-item>
+              <el-menu-item index="/date">
+                <el-icon>
+                  <Calendar />
+                </el-icon>
+                <span>日期</span>
+              </el-menu-item>
               <el-menu-item index="/data">
                 <el-icon>
                   <Notebook />
