@@ -81,3 +81,54 @@ function arraysContainSameElements(arr1, arr2) {
   // 如果两个集合相等，则返回 true
   return true
 }
+
+//计算出menu需要的路由数据
+export function filterAsyncRoutes(authority) {
+  const routeArr1 = []
+  const routeArr2 = []
+  const authoritySet = new Set(authority ? authority.split(',') : []) // 使用 Set 来存储权限，提高查找效率
+
+  // 筛选出一级路由
+  navRoute.forEach((route) => {
+    if (authoritySet.has(route.meta.title)) {
+      if (!route.children) {
+        routeArr1.push(route)
+      } else {
+        // 筛选出有子路由的一级路由
+        const filteredChildren = route.children.filter((child) => authoritySet.has(child.meta.title))
+        if (filteredChildren.length > 0) {
+          routeArr2.push({
+            ...route,
+            children: filteredChildren
+          })
+        }
+      }
+    }
+  })
+
+  return [routeArr1, routeArr2]
+}
+
+//计算出用户是否拥有该权限路由
+export function checkPermissionRoute(routeArr1, routeArr2, path) {
+  console.log(routeArr1, path)
+  let checked = false
+  routeArr1.forEach((item) => {
+    if (item.path === path) {
+      checked = true
+    }
+  })
+  if (!checked) {
+    routeArr2.forEach((item) => {
+      if (item.path === path && !item.children) {
+        checked = false
+      }
+      item.children.forEach((child) => {
+        if (child.path === path) {
+          checked = true
+        }
+      })
+    })
+  }
+  return checked
+}

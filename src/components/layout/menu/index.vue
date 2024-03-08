@@ -11,142 +11,36 @@
                 :class="{ 'logo-text-active': !utilsStore.isCollapse }">&nbsp;&nbsp;&nbsp;后台管理系统</span>
             </div>
             <el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
-              background-color="#24262F" text-color="#fff" active-text-color="#409EFF  " :collapse="utilsStore.isCollapse"
-              style="border-right: none" collapse-transition="false" router="true">
+              background-color="#24262F" text-color="#fff" active-text-color="#409EFF  "
+              :collapse="utilsStore.isCollapse" style="border-right: none" collapse-transition="false" router="true">
               <!-- 去除右侧的滑动条 -->
-              <el-menu-item index="/home">
-                <el-icon>
-                  <HomeFilled />
-                </el-icon>
-                <span>首页</span>
-              </el-menu-item>
-              <el-menu-item index="/date">
-                <el-icon>
-                  <Calendar />
-                </el-icon>
-                <span>日期</span>
-              </el-menu-item>
-              <el-menu-item index="/data">
-                <el-icon>
-                  <Notebook />
-                </el-icon>
-                <span>资料管理</span>
-              </el-menu-item>
-              <el-sub-menu index="/user">
-                <template #title>
+              <template v-for="i in route1">
+                <el-menu-item :index="i.path">
                   <el-icon>
-                    <Avatar />
+                    <!-- <HomeFilled /> -->
+                    <component :is="i.meta.icon"></component>
                   </el-icon>
-                  <span>用户管理 </span>
-                </template>
-                <el-menu-item-group class="el-menu-item-group">
-                  <el-menu-item index="/user/roleplay" class="el-menu-item-text">
+                  <span>{{ i.meta.title }}</span>
+                </el-menu-item>
+              </template>
+              <template v-for="j in route2">
+                <el-sub-menu :index="j.path">
+                  <template #title>
                     <el-icon>
-                      <User />
+                      <component :is="j.meta.icon"></component>
                     </el-icon>
-                    <span>角色管理</span>
-                  </el-menu-item>
-                  <el-menu-item index="/user/person" class="el-menu-item-text">
-                    <el-icon>
-                      <UserFilled />
-                    </el-icon>
-                    <span>人物管理</span>
-                  </el-menu-item>
-                </el-menu-item-group>
-              </el-sub-menu>
-
-              <el-sub-menu index="/limits">
-                <template #title>
-                  <el-icon>
-                    <Lock />
-                  </el-icon>
-                  <span>权限管理 </span>
-                </template>
-                <el-menu-item-group class="el-menu-item-group">
-                  <el-menu-item index="/limits/rolelimit" class="el-menu-item-text">
-                    <el-icon>
-                      <Coin />
-                    </el-icon>
-                    <span>角色权限管理</span>
-                  </el-menu-item>
-                  <el-menu-item index="/limits/personlimit" class="el-menu-item-text">
-                    <el-icon>
-                      <Paperclip />
-                    </el-icon>
-                    <span>人物权限管理</span>
-                  </el-menu-item>
-                </el-menu-item-group>
-              </el-sub-menu>
-
-              <el-sub-menu index="/inform">
-                <template #title>
-                  <el-icon>
-                    <Bell />
-                  </el-icon>
-                  <span>通知管理 </span>
-                </template>
-                <el-menu-item-group class="el-menu-item-group">
-                  <el-menu-item index="/inform/news" class="el-menu-item-text">
-                    <el-icon>
-                      <Message />
-                    </el-icon>
-                    <span>新闻管理</span>
-                  </el-menu-item>
-                  <el-menu-item index="/inform/notice" class="el-menu-item-text">
-                    <el-icon>
-                      <Calendar />
-                    </el-icon>
-                    <span>公告管理</span>
-                  </el-menu-item>
-                </el-menu-item-group>
-              </el-sub-menu>
-
-              <el-sub-menu index="/basics">
-                <template #title>
-                  <el-icon>
-                    <Grid />
-                  </el-icon>
-                  <span>基础管理 </span>
-                </template>
-                <el-menu-item-group class="el-menu-item-group">
-                  <el-menu-item index="/basics/general" class="el-menu-item-text">
-                    <el-icon>
-                      <DocumentCopy />
-                    </el-icon>
-                    <span>基础信息管理</span>
-                  </el-menu-item>
-                  <el-menu-item index="/basics/slides" class="el-menu-item-text">
-                    <el-icon>
-                      <PictureFilled />
-                    </el-icon>
-                    <span>轮播图图片管理</span>
-                  </el-menu-item>
-                </el-menu-item-group>
-              </el-sub-menu>
-
-
-              <el-sub-menu index="/competition">
-                <template #title>
-                  <el-icon>
-                    <GoldMedal />
-                  </el-icon>
-                  <span>竞赛管理 </span>
-                </template>
-                <el-menu-item-group class="el-menu-item-group">
-                  <el-menu-item index="/competition/event" class="el-menu-item-text">
-                    <el-icon>
-                      <Football />
-                    </el-icon>
-                    <span>竞赛活动管理</span>
-                  </el-menu-item>
-                  <el-menu-item index="/competition/winner" class="el-menu-item-text">
-                    <el-icon>
-                      <Medal />
-                    </el-icon>
-                    <span>竞赛获奖管理</span>
-                  </el-menu-item>
-                </el-menu-item-group>
-              </el-sub-menu>
+                    <span>{{ j.meta.title }}</span>
+                  </template>
+                  <el-menu-item-group class="el-menu-item-group" v-for="k in j.children">
+                    <el-menu-item :index="k.path" class="el-menu-item-text">
+                      <el-icon>
+                        <component :is="k.meta.icon"></component>
+                      </el-icon>
+                      <span>{{ k.meta.title }}</span>
+                    </el-menu-item>
+                  </el-menu-item-group>
+                </el-sub-menu>
+              </template>
             </el-menu>
           </el-col>
         </el-row>
@@ -158,10 +52,21 @@
 
 import { useUtilsStore } from '@/store/modules/utils.js';
 import { useRoute } from 'vue-router'
+import { filterAsyncRoutes } from '@/utils/processRoutes.js'
+import { onMounted, ref } from 'vue'
 const $route = useRoute()
 const utilsStore = useUtilsStore()
+const route1 = ref([])
+const route2 = ref([])
+
+onMounted(() => {
+  const [Route1, Route2] = filterAsyncRoutes(JSON.parse(localStorage.getItem('userinfo') || '[]').authority)
+  //再次获取路由
+  route1.value = Route1
+  route2.value = Route2
+})
 </script>
-  
+
 <style lang="scss" scoped>
 .menu-left {
   width: $menuWidth;

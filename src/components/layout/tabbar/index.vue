@@ -14,8 +14,8 @@
         <el-breadcrumb :separator-icon="ArrowRight">
           <el-breadcrumb-item v-if="$route.path === '/home'">首页</el-breadcrumb-item>
           <el-breadcrumb-item v-for="(bread, index) in breadArr" :to="{ path: bread.path }" :key="bread.name">{{
-            bread.meta.title
-          }}</el-breadcrumb-item>
+          bread.meta.title
+        }}</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
       <div class="setting">
@@ -115,7 +115,7 @@ function getBread() {
   //先清空数据
   breadArr.value = []
   const pathArr = $route.path.split('/')
-  console.log(pathArr);
+  // console.log(pathArr);
   navRoute.forEach(item => {
     if (item.name.toLowerCase() == pathArr[1]) {
       // console.log(item);
@@ -160,7 +160,7 @@ const logout = async () => {
     return ElMessage.error(res.message)
   } else {
     ElMessage.success(res.message)
-    localStorage.removeItem('userinfo')
+    userStore.logout()
     $router.push('/login')
   }
 }

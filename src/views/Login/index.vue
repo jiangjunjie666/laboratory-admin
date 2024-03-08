@@ -82,8 +82,8 @@ const submitFormLogin = async (formEl) => {
         message: '登录成功',
       })
       //跳转至首页，存储token以及用户信息
-      $Router.push('/')
       userStore.saveUserInfo(res.data)
+      $Router.push('/')
     } else {
       //先检查username
       if (fields.username) {
