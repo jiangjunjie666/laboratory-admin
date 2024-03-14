@@ -25,7 +25,7 @@
     </el-card>
     <el-card>
       <el-table :data="tableData" @selection-change="handleSelectionChange" v-loading="loading" style="width: 100%"
-        max-height="600" border highlight-current-row="true">
+        border highlight-current-row="true">
         <el-table-column type="selection" width="100" align="center" />
         <el-table-column label="Id" prop="id" width="100" align="center" />
         <el-table-column label="角色名称" prop="name" width="150" align="center" />
@@ -81,7 +81,9 @@
       <AddPerson @addAdminHandler="dialogVisibleAdd = false"></AddPerson>
     </el-dialog>
 
-    <AllotRolePerson :drawer="drawer" :roleList="roleList" :roleId="roleId" @closeAllot="closeAllot"></AllotRolePerson>
+    <AllotRolePerson :drawer="drawer" :roleList="roleList" :roleId="roleId" :roleName="roleName"
+      @closeAllot="closeAllot">
+    </AllotRolePerson>
   </div>
 </template>
 
@@ -113,6 +115,7 @@ const drawer = ref(false)
 const roleList = ref([])
 
 const roleId = ref(0)
+const roleName = ref('')
 const editData = reactive({
   id: '',
   name: '',
@@ -194,10 +197,11 @@ watch(roleList, (newValue, oldValue) => {
 const allotRoleBtn = (row) => {
   drawer.value = true
   roleId.value = row.id
+  roleName.value = row.name
   // 将权限字符串转换为数组
   const permissions = row.route_permissions.split(',');
   const arr = convertRoutes(navRoute)
-  console.log(arr);
+  // console.log(arr);
   // 遍历权限数组，匹配路由配置
   permissions.forEach(permission => {
     checkPermission(permission, arr);
@@ -206,14 +210,14 @@ const allotRoleBtn = (row) => {
   roleStore.oldAllotLimitRoleList = JSON.parse(JSON.stringify(arr))
 }
 //关闭分配权限
-const closeAllot = async (id) => {
+const closeAllot = async (id, name) => {
   drawer.value = false
   //查看数据是否被修改
-  console.log(roleList.value, roleStore.oldAllotLimitRoleList);
   if (JSON.stringify(roleList.value) !== JSON.stringify(roleStore.oldAllotLimitRoleList)) {
     const roleStr = convertRoleListToPermissionString(roleList.value)
     const data = {
       id,
+      name,
       roleStr
     }
     const res = await reqGiveAllotRole(data)

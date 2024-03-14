@@ -10,10 +10,13 @@ export const useUserStore = defineStore('users', {
   actions: {
     //登录成功后存储信息的步骤
     saveUserInfo(data) {
+      this.userinfo = data
       localStorage.setItem('userinfo', JSON.stringify(data))
+      return true
     },
     logout() {
       localStorage.removeItem('userinfo')
+      localStorage.removeItem('visitedRoutes')
     }
   },
   getters: {}

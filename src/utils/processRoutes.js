@@ -30,9 +30,11 @@ export function convertRoutes(routes) {
 
 export function checkAllPermission(arr) {
   //将arr中的空字符元素清除
+  // console.log(arr)
   arr = arr.filter((item) => {
     return item !== ''
   })
+  // console.log(arr)
   if (arraysContainSameElements(checkPermission(navRoute), arr)) {
     return ['所有权限']
   } else {
@@ -111,7 +113,7 @@ export function filterAsyncRoutes(authority) {
 
 //计算出用户是否拥有该权限路由
 export function checkPermissionRoute(routeArr1, routeArr2, path) {
-  console.log(routeArr1, path)
+  // console.log(routeArr1, path)
   let checked = false
   routeArr1.forEach((item) => {
     if (item.path === path) {

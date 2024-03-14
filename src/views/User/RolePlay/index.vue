@@ -31,7 +31,7 @@
     </el-card>
     <el-card class=" table-card">
       <el-table :data="tableData" @selection-change="handleSelectionChange" v-loading="loading" style="width: 100%"
-        max-height="600" border highlight-current-row="true">
+        border highlight-current-row="true">
         <el-table-column type="selection" width="100" align="center" />
         <el-table-column property="id" label="ID号" width="100" align="center" />
         <el-table-column property="username" label="用户名" width="150" align="center" />
@@ -277,6 +277,8 @@ const handleStatusChange = async (row) => {
 //增加管理员自定义事件回调
 const addAdminHandler = (value) => {
   dialogVisibleAdd.value = value
+  //重新获取数据
+  getRoleList()
 }
 
 const editHandler = (value) => {

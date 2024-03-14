@@ -91,6 +91,10 @@ const avatarUrl = ref(import.meta.env.VITE_SERVER + '/images/userAvatar/' + user
 const time = ref(getTime())
 const stimulate = ref(getCumulate())
 onMounted(() => {
+  // if (utilsStore.visitedRoutes.length !== 0) {
+  //   //强制刷新
+  //   $router.go(0)
+  // }
   time.value = getTime()
   stimulate.value = getCumulate()
   echarts.init(document.getElementById('category'), 'dark').setOption(option1)

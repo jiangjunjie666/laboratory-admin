@@ -55,9 +55,7 @@ const rules = reactive({
     { required: true, message: '请输入密码', trigger: 'blur' },
   ],
   code: [
-    { required: true, message: '请输入验证码', trigger: 'blur' },
-    // 保证是四个字符
-    { min: 4, max: 4, message: '验证码长度为4位', trigger: 'blur' },
+    { required: true, message: '请输入计算结果', trigger: 'blur' }
   ],
 })
 //登录
@@ -82,10 +80,15 @@ const submitFormLogin = async (formEl) => {
         message: '登录成功',
       })
       //跳转至首页，存储token以及用户信息
-      userStore.saveUserInfo(res.data)
-      $Router.push('/')
+      const data = userStore.saveUserInfo(res.data)
+      //清空路由存储信息
+      localStorage.setItem('visitedRoutes', '[]')
+      if (data) {
+        $Router.push('/')
+      }
+
     } else {
-      //先检查username
+      //先检查username  
       if (fields.username) {
         return ElMessage({
           type: 'error',
@@ -116,6 +119,7 @@ const updateCode = () => {
 const vantaRef = ref(null);
 let vantaEffect = null;
 onMounted(() => {
+  //刷新验证码
   // 初始化 Vanta.js 效果
   vantaEffect = BIRDS({
     el: vantaRef.value,

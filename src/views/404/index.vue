@@ -22,7 +22,7 @@
             <div class="bullshit-info">
               {{ info }}
             </div>
-            <a class="bullshit-return-home" href="#/index">{{ jumpTime }}s&nbsp;{{ btn }}</a>
+            <a class="bullshit-return-home" href="/home">{{ jumpTime }}s&nbsp;{{ btn }}</a>
           </div>
         </el-col>
       </el-row>
@@ -51,7 +51,7 @@ const timeChange = () => {
       //跳转至首页
       clearInterval(timer.value)
       router.push({
-        path: '/'
+        path: '/home'
       })
     }
   }, 1000)

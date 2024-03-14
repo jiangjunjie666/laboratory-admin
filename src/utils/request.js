@@ -29,6 +29,7 @@ request.interceptors.response.use(
   (error) => {
     //失败的回调
     //处理网络错误
+    const userinfo = JSON.parse(localStorage.getItem('userinfo'))
     let msg = ''
     let status = error.response.status
     console.log(error)
@@ -36,9 +37,26 @@ request.interceptors.response.use(
     switch (status) {
       case 401:
         msg = error.response.data
-        //实现路由跳转
-        router.push('/login')
-        localStorage.removeItem('userinfo')
+        if (msg == 'token过期') {
+          //调用接口将online设置为0
+          request.put('/api/online?id=' + userinfo.id).then((res) => {
+            //跳转到登录页面
+            router.push('/login')
+            localStorage.removeItem('userinfo')
+            localStorage.removeItem('visitedRoutes')
+          })
+        } else if (msg == '当前账号被禁用') {
+          //跳转至登录页
+          router.push('/login')
+          localStorage.removeItem('userinfo')
+          localStorage.removeItem('visitedRoutes')
+        } else {
+          //实现路由跳转
+          router.push('/login')
+          localStorage.removeItem('userinfo')
+          localStorage.removeItem('visitedRoutes')
+        }
+
         break
       case 403:
         msg = '无权访问'

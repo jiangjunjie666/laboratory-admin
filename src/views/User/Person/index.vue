@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="top animate__fadeInRightBig animate__animated">
     <el-card>
       <template #header>
         <div class="card-header">
@@ -44,14 +44,13 @@
       <MyButton type="primary" text="添加新成员" @MybtnClick="addPerson" icon="Plus" class="add" />
       <el-table :data="personList" border="true" class="table" highlight-current-row="true" lazy="true" stripe="true"
         v-loading="loading">
-        <el-table-column label="Id" prop="id" width="50" />
-        <el-table-column label="姓名" prop="name" width="100" />
-        <el-table-column label="性别" prop="gender" width="100" />
+        <el-table-column label="Id" prop="id" width="50" align="center" />
+        <el-table-column label="姓名" prop="name" width="100" align="center" />
+        <el-table-column label="性别" prop="gender" width="100" align="center" />
         <!-- 头像照片 -->
-        <el-table-column label="照片">
+        <el-table-column label="照片" align="center">
           <template #default="scope">
-            <el-image style="width: 70px; height: 50px" :src="`http://localhost:3000/images/${scope.row.avatar_photo}`"
-              fits="fit">
+            <el-image style="width: 70px; height: 50px" :src="`${scope.row.avatar_photo}`" fits="fit">
               <template #error>
                 <div class="image-slot">
                   <el-icon>
@@ -63,15 +62,15 @@
             </el-image>
           </template>
         </el-table-column>
-        <el-table-column label="生日" prop="birthday" />
-        <el-table-column label="加入时间" prop="join_date" />
-        <el-table-column label="职位" prop="position" />
-        <el-table-column label="是否在学校">
+        <el-table-column label="生日" prop="birthday" align="center" />
+        <el-table-column label="加入时间" prop="join_date" align="center" />
+        <el-table-column label="职位" prop="position" align="center" />
+        <el-table-column label="是否在学校" align="center">
           <template #default="scope">
             <p>{{ scope.row.is_in_school ? '是' : '否' }}</p>
           </template>
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" align="center">
           <template #default="scope">
             <el-button size="small" @click="handleEdit(scope.$index, scope.row)" type="primary">
               <el-icon class="el-icon--right">
@@ -92,69 +91,71 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination v-model:current-page="page" background small v-model:page-size="pageSize" :page-sizes="[3, 5, 7, 9]"
-        :small="small" :disabled="disabled" :background="background" layout="total, sizes, prev, pager, next, jumper"
-        :total="total" @size-change="getPersonList" @current-change="getPersonList" />
+      <el-pagination v-model:current-page="page" background small v-model:page-size="pageSize"
+        :page-sizes="[3, 5, 7, 9]" :small="small" :disabled="disabled" :background="background"
+        layout="total, sizes, prev, pager, next, jumper" :total="total" @size-change="getPersonList"
+        @current-change="getPersonList" />
     </el-card>
-    <!-- dialog弹出框 添加新成员 -->
-    <el-dialog v-model="dialogVisible" title="添加新成员" width="40%" :before-close="handleClose">
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="dialogVisible = false">关闭</el-button>
-          <el-button type="primary" @click="addPersonFormSubmit(ruleFormRef)" :disabled="edit">
-            添加
-          </el-button>
-          <el-button type="warning" @click="EditForm(ruleFormRef)" :disabled="!edit">修改</el-button>
-        </span>
-      </template>
-      <el-form ref="ruleFormRef" :model="addPersonForm" :rules="addPersonRules" label-width="100px" class="demo-ruleForm"
-        label-position="left" :size="formSize" status-icon>
-        <el-form-item label="姓名：" prop="name">
-          <el-input v-model="addPersonForm.name" placeholder="请输入姓名" style="width:300px" />
-        </el-form-item>
-        <el-form-item label="性别：" prop="gender">
-          <el-radio-group v-model="addPersonForm.gender" class="ml-4">
-            <el-radio label="男" size="large">男</el-radio>
-            <el-radio label="女" size="large">女</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="职位：" prop="position">
-          <el-radio-group v-model="addPersonForm.position" class="ml-4">
-            <el-radio label="老师" size="large">老师</el-radio>
-            <el-radio label="学生" size="large">学生</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="职位：" prop="is_in_school">
-          <el-radio-group v-model="addPersonForm.is_in_school" class="ml-4">
-            <el-radio label="1" size="large">在校</el-radio>
-            <el-radio label="0" size="large">不在校</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="生日：" prop="birthday">
-          <el-date-picker v-model="addPersonForm.birthday" type="date" placeholder="生日" :size="size"
-            value-format="YYYY-MM-DD" />
-        </el-form-item>
-        <el-form-item label="加入时间：" prop="join_date">
-          <el-date-picker v-model="addPersonForm.join_date" type="date" placeholder="加入时间" :size="size"
-            value-format="YYYY-MM-DD" />
-        </el-form-item>
-
-        <el-form-item label="照片：" prop="avatar_url">
-          <el-upload class="avatar-uploader" action="/api/api/upload" headers="headers" :show-file-list="false"
-            :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-            <img v-if="addPersonForm.avatar_url" :src="addPersonForm.avatar_url" class="avatar" />
-            <el-icon v-else class="avatar-uploader-icon">
-              <Plus />
-            </el-icon>
-          </el-upload>
-        </el-form-item>
-        <el-form-item label="照片名字：" prop="avatar_url_name">
-          <el-input v-model="addPersonForm.avatar_url_name" placeholder="请输入照片名" style="width: 300px;margin:0 10px 0 0" />
-          <el-button type="primary" @click="addPersonForm.avatar_url_name = addPersonForm.name">使用姓名命名</el-button>
-        </el-form-item>
-      </el-form>
-    </el-dialog>
   </div>
+
+  <!-- dialog弹出框 添加新成员 -->
+  <el-dialog v-model="dialogVisible" title="添加新成员" width="40%" :before-close="handleClose">
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="dialogVisible = false">关闭</el-button>
+        <el-button type="primary" @click="addPersonFormSubmit(ruleFormRef)" :disabled="edit">
+          添加
+        </el-button>
+        <el-button type="warning" @click="EditForm(ruleFormRef)" :disabled="!edit">修改</el-button>
+      </span>
+    </template>
+    <el-form ref="ruleFormRef" :model="addPersonForm" :rules="addPersonRules" label-width="100px" class="demo-ruleForm"
+      label-position="left" :size="formSize" status-icon>
+      <el-form-item label="姓名：" prop="name">
+        <el-input v-model="addPersonForm.name" placeholder="请输入姓名" style="width:300px" />
+      </el-form-item>
+      <el-form-item label="性别：" prop="gender">
+        <el-radio-group v-model="addPersonForm.gender" class="ml-4">
+          <el-radio label="男" size="large">男</el-radio>
+          <el-radio label="女" size="large">女</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="职位：" prop="position">
+        <el-radio-group v-model="addPersonForm.position" class="ml-4">
+          <el-radio label="老师" size="large">老师</el-radio>
+          <el-radio label="学生" size="large">学生</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="职位：" prop="is_in_school">
+        <el-radio-group v-model="addPersonForm.is_in_school" class="ml-4">
+          <el-radio label="1" size="large">在校</el-radio>
+          <el-radio label="0" size="large">不在校</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="生日：" prop="birthday">
+        <el-date-picker v-model="addPersonForm.birthday" type="date" placeholder="生日" :size="size"
+          value-format="YYYY-MM-DD" />
+      </el-form-item>
+      <el-form-item label="加入时间：" prop="join_date">
+        <el-date-picker v-model="addPersonForm.join_date" type="date" placeholder="加入时间" :size="size"
+          value-format="YYYY-MM-DD" />
+      </el-form-item>
+
+      <el-form-item label="照片：" prop="avatar_url">
+        <el-upload class="avatar-uploader" action="/api/api/personUpload" headers="headers" :show-file-list="false"
+          :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+          <img v-if="addPersonForm.avatar_url" :src="addPersonForm.avatar_url" class="avatar" />
+          <el-icon v-else class="avatar-uploader-icon">
+            <Plus />
+          </el-icon>
+        </el-upload>
+      </el-form-item>
+      <!-- <el-form-item label="照片名字：" prop="avatar_url_name">
+        <el-input v-model="addPersonForm.avatar_url_name" placeholder="请输入照片名" style="width: 300px;margin:0 10px 0 0" />
+        <el-button type="primary" @click="addPersonForm.avatar_url_name = addPersonForm.name">使用姓名命名</el-button>
+      </el-form-item> -->
+    </el-form>
+  </el-dialog>
 </template>
 
 <script setup>
@@ -196,7 +197,7 @@ const addPersonForm = reactive({
   join_date: '',
   position: '',
   is_in_school: '',
-  avatar_url_name: ''
+  // avatar_url_name: ''
 })
 //获取table数据
 const getPersonList = async () => {
@@ -224,7 +225,7 @@ const handleAvatarSuccess = (
   response,
   uploadFile
 ) => {
-  addPersonForm.avatar_url = import.meta.env.VITE_SERVER + response.imgUrl
+  addPersonForm.avatar_url = response.data.url
 }
 //限制上传图片的格式
 const beforeAvatarUpload = (rawFile) => {
@@ -264,9 +265,7 @@ const addPersonRules = reactive({
   avatar_url: [
     { required: true, message: '请上传照片', trigger: 'change' }
   ],
-  avatar_url_name: [
-    { required: true, message: '请输入照片名', trigger: 'blur' },
-  ]
+
 })
 
 //点击添加新成员按钮后处理的事件
@@ -312,12 +311,12 @@ const handleEdit = (index, row) => {
   addPersonForm.id = row.id
   addPersonForm.name = row.name
   addPersonForm.gender = row.gender
-  addPersonForm.avatar_url = import.meta.env.VITE_SERVER + '/images/' + row.avatar_photo
+  addPersonForm.avatar_url = row.avatar_photo
   addPersonForm.birthday = row.birthday
   addPersonForm.join_date = row.join_date
   addPersonForm.position = row.position
   addPersonForm.is_in_school = row.is_in_school + ''
-  addPersonForm.avatar_url_name = row.avatar_photo.split('.')[0]
+  // addPersonForm.avatar_url_name = row.avatar_photo
 }
 //编辑请求发送
 const EditForm = async (formEl) => {
@@ -373,7 +372,7 @@ const clearForm = () => {
   addPersonForm.join_date = ''
   addPersonForm.position = ''
   addPersonForm.is_in_school = ''
-  addPersonForm.avatar_url_name = ''
+  // addPersonForm.avatar_url_name = ''
 }
 
 //计算出预览图片的数据

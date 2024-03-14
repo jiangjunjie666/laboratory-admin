@@ -11,8 +11,8 @@
           <template #reference>
             <el-checkbox class="allotRole" v-model="role.checked" :label="role.title" size="large" border />
           </template>
-          <el-checkbox class="allotRole" style="margin:5px 0" v-for="i in role.children" :key="i.name" v-model="i.checked"
-            :label="i.title" size="large" border />
+          <el-checkbox class="allotRole" style="margin:5px 0" v-for="i in role.children" :key="i.name"
+            v-model="i.checked" :label="i.title" size="large" border />
         </el-popover>
       </div>
     </el-drawer>
@@ -34,6 +34,10 @@ const props = defineProps({
   roleId: {
     type: Number,
     default: 0
+  },
+  roleName: {
+    type: String,
+    default: ''
   }
 })
 
@@ -47,7 +51,7 @@ const handleClose = (done) => {
     type: 'warning',
     callback: (action) => {
       if (action === 'confirm') {
-        $emit('closeAllot', props.roleId)
+        $emit('closeAllot', props.roleId, props.roleName)
         done()
       }
     }

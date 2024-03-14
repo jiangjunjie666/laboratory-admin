@@ -11,17 +11,23 @@ router.beforeEach((to, from, next) => {
   //进行路由拦截
   const userStore = useUserStore()
   const [route1, route2] = filterAsyncRoutes(userStore.userinfo.authority)
-  if (to.path == '/login' || to.path == '/401' || to.path == '/' || to.path == '/404') {
+  if (to.path == '/login' && !localStorage.getItem('userinfo')) {
     next()
   }
 
-  if (localStorage.getItem('userinfo') && checkPermissionRoute(route1, route2, to.path)) {
-    //进行路由拦截，跳转至登录页
+  if (to.path == '/401' || to.path == '/' || to.path == '/404') {
     next()
-  } else {
-    next('/401')
   }
-  next()
+
+  if (!checkPermissionRoute(route1, route2, to.path) && !localStorage.getItem('userinfo')) {
+    //进行路由拦截，跳转至登录页
+    next('/login')
+  } else if (!checkPermissionRoute(route1, route2, to.path) && localStorage.getItem('userinfo')) {
+    next('/401')
+  } else {
+    next()
+  }
+  // next()
 })
 
 //全局后置守卫

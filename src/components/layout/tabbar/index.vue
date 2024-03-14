@@ -179,6 +179,7 @@ const fullScreen = () => {
   }
 }
 onMounted(() => {
+  //强制刷新一次页面
   getBread()
 })
 </script>
