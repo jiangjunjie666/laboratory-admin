@@ -1,5 +1,5 @@
 <template>
-  <div class="CompetitionWinner">
+  <div class="CompetitionWinner animate__fadeInRightBig animate__animated">
     <div class="top">
       <el-card>
         <template #header>
@@ -19,7 +19,6 @@
               <MyButton type="danger" icon="Delete" text="批量删除"></MyButton>
             </template>
           </el-popconfirm>
-
           <p style="margin:0 10px;color:#777">竞赛名称:</p>
           <el-select v-model="searchKeyName" class="m-2 select" placeholder="Select" size="large" style="width: 240px"
             @change="getAwardList">
